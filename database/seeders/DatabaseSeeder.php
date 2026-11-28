@@ -13,18 +13,29 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
-        User::create([
-            'name' => 'Admin Mori',
-            'email' => 'admin@moricoffee.test',
-            'password' => Hash::make('password'),
-            'role' => 'admin',
-        ]);
+        // Seeder akun
+        User::updateOrCreate(
+            ['email' => 'admin@moricoffee.test'],
+            [
+                'name' => 'Admin Mori',
+                'password' => Hash::make('password'),
+                'role' => 'admin',
+            ]
+        );
 
-        User::create([
-            'name' => 'Kasir Mori',
-            'email' => 'kasir@moricoffee.test',
-            'password' => Hash::make('password'),
-            'role' => 'kasir',
+        User::updateOrCreate(
+            ['email' => 'kasir@moricoffee.test'],
+            [
+                'name' => 'Kasir Mori',
+                'password' => Hash::make('password'),
+                'role' => 'kasir',
+            ]
+        );
+
+        // Seeder kategori dan produk
+        $this->call([
+            CategorySeeder::class,
+            ProductSeeder::class,
         ]);
     }
 }
